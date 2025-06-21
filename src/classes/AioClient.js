@@ -1,8 +1,8 @@
 const AioBase = require('./AioBase');
-const AioContext = require('./AioContext');
+// const AioContext = require('./AioContext');
 const AioParser = require('./AioParser');
 const LoadCommands = require('./LoadCommands');
-const FunctionManager = require('./core/FunctionManager');
+const FunctionManager = require('../core/CustomFunction');
 
 class AioClient extends AioBase {
   constructor(token) {
