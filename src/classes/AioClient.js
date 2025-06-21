@@ -26,16 +26,24 @@ class AioClient extends AioBase {
   }
 
   async handleUpdate(update) {
-    const context = new AioContext(update);
-    const commandName = context.text.split(' ')[0].replace('/', '');
-    
-    if (this.commands[commandName]) {
-      await AioParser.parseBlocks(
-        this.commands[commandName],
-        context,
-        this.actions
+    try {
+      const context = new AioContext(update);
+      const commandName = context.text.split(' ')[0].replace('/', '');
+      
+      if (this.commands[commandName]) {
+        await AioParser.parseBlocks(
+          this.commands[commandName],
+          context,
+          this.actions
+        );
+      }
+  } catch (error) {
+    throw AioError.commandExecutionError(
+        commandName, 
+        context, 
+        error
       );
-    }
+  }
   }
 
   async sendMessage(context, text) {

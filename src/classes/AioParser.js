@@ -11,8 +11,12 @@ class AioParser {
       if (action) {
         try {
           promises.push(action(context, arg));
-        } catch (e) {
-          console.error(`Error executing ${actionName}:`, e);
+        } catch (error) {
+            throw AioError.blockParseError(
+              actionName, 
+              arg, 
+              error
+            );
         }
       } else {
         console.warn(`Unknown action: ${actionName}`);
@@ -21,6 +25,7 @@ class AioParser {
 
     return Promise.all(promises);
   }
+
 }
 
 module.exports = AioParser;
