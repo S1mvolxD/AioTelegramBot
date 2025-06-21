@@ -3,6 +3,7 @@ const AioBase = require('./AioBase');
 const AioParser = require('./AioParser');
 const LoadCommands = require('./LoadCommands');
 const FunctionManager = require('../core/CustomFunction');
+const path = require('path');
 
 class AioClient extends AioBase {
   constructor(token) {
