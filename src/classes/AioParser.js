@@ -1,3 +1,5 @@
+const AioError = require('./AioError');
+
 class AioParser {
   static async parseBlocks(code, context, actions) {
     const blockRegex = /\$(\w+)\[([^\]]+)\]/g;
