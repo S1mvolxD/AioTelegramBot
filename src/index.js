@@ -9,5 +9,5 @@ module.exports = {
   AioClient,
   AioContext,
   AioParser,
-  localStorage
+  LoadCommands
 };
