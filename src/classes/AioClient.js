@@ -10,6 +10,8 @@ class AioClient extends AioBase {
       sendMessage: this.sendMessage.bind(this),
       replyMessage: this.replyMessage.bind(this)
     };
+
+    this.lastUpdateId = 0; // Инициализация для polling
   }
 
   command({ name, code }) {
