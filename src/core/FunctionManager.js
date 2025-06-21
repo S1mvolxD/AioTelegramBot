@@ -15,8 +15,8 @@ class FunctionManager {
     * Loads all built-in functions from the specified directory
     * @param {string} dirPath - Path to the functions folder
     */
-    loadFunctions(dirPath) {
-        this._loadFunctionsFromDir(dirPath);
+    loadBuiltinFunctions(dirPath) {
+        this._loadFunctionsFromDir(dirPath, 'builtin');
     }
 
     /**
@@ -36,7 +36,7 @@ class FunctionManager {
 
             const functionFiles = fs.readdirSync(categoryPath)
                 .filter(file => file.endsWith('.js'));
-                
+
             for (const file of functionFiles) {
                 const filePath = path.join(categoryPath, file);
                 try {
