@@ -15,8 +15,8 @@ class FunctionManager {
     * Loads all built-in functions from the specified directory
     * @param {string} dirPath - Path to the functions folder
     */
-    loadBuiltinFunctions(dirPath) {
-        this._loadFunctionsFromDir(dirPath, 'builtin');
+    loadFunctions(dirPath) {
+        this._loadFunctionsFromDir(dirPath);
     }
 
     /**
