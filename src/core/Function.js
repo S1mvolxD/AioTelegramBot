@@ -1,6 +1,6 @@
-const Block = require("./Block");
+const Block = require('./Block');
 
-class Function {
+class AioFunction {
     constructor(meta, handler) {
         this.name = meta.name;
         this.description = meta.description || '';
@@ -8,15 +8,15 @@ class Function {
         this.handler = handler;
         this.block = new Block(this);
     }
-
+    
     execute(ctx, args) {
         return this.handler(ctx, ...args);
     }
-
+    
     addChild(child) {
         this.block.add(child);
         return this;
     }
 }
 
-module.exports = Function;
+module.exports = AioFunction;
