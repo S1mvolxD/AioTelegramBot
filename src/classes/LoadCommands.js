@@ -1,4 +1,3 @@
-const AioError = require('./AioError');
 const fs = require('fs');
 const path = require('path');
 
