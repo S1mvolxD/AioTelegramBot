@@ -1,20 +1,16 @@
 {
-  "dependencies": {
-    "node-fetch": "^3.3.2"
-  },
   "name": "aiotelegrambot",
   "version": "1.0.0",
+  "description": "",
   "main": "./src/index.js",
-  "directories": {
-    "test": "test"
+  "dependencies": {
+    "axios": "^1.10.0"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node bot.js"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": ""
+  "author": "S1mvolxD",
+  "license": "ISC"
 }
