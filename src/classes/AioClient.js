@@ -47,23 +47,32 @@ class AioClient extends AioBase {
   async startPolling() {
     this.lastUpdateId = 0;
     
-    setInterval(async () => {
+    const poll = async () => {
       try {
         const response = await this._callApi('getUpdates', {
           offset: this.lastUpdateId + 1,
           timeout: 30
         });
         
-        if (response.ok && response.result.length > 0) {
+        if (response.ok && response.result) {
           for (const update of response.result) {
-            await this.handleUpdate(update);
-            this.lastUpdateId = update.update_id;
+            try {
+              await this.handleUpdate(update);
+            } catch (e) {
+              console.error('Update handling error:', e);
+            }
+            this.lastUpdateId = Math.max(this.lastUpdateId, update.update_id);
           }
         }
       } catch (e) {
-        console.error('Polling Error:', e);
+        console.error('Polling fatal error:', e);
       }
-    }, 1000);
+      
+      // Рекурсивный вызов вместо setInterval
+      setTimeout(poll, 500);
+    };
+    
+    poll();
   }
 }
 
