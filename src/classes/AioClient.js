@@ -8,17 +8,24 @@ const path = require('path');
 class AioClient extends AioBase {
   constructor(token) {
     super(token);
-    this.commands = {};
-    // this.actions = {
-    //   sendMessage: this.sendMessage.bind(this),
-    //   replyMessage: this.replyMessage.bind(this)
-    // };
+    this.commands = new Map();
+    this.actions = {};
     this.lastUpdateId = 0; // Initialization for polling
     this.functionManager = new FunctionManager(this); // Initializing the function Manager
     this.loader = new LoadCommands(this);
-    this.functionManager.loadFunctions(
-      path.join(__dirname, 'functions') // Loading built-in functions
-    );
+    
+    try {
+      this.functionManager.loadBuiltinFunctions(
+        path.join(__dirname, '../functions/builtin')
+      );
+        const customFunctionsPath = path.join(__dirname, '../functions/custom');
+        if (fs.existsSync(customFunctionsPath)) {
+          this.functionManager.loadCustomFunctions(customFunctionsPath);
+        }
+        console.log(`✅ Загружено ${this.functionManager.functions.size} функций`);
+        } catch (error) {
+          console.error('❌ Ошибка загрузки функций:', error);
+        }
     this.parser = new AioParser(this);
   }
 
