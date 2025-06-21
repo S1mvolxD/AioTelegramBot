@@ -1,3 +1,4 @@
+const AioError = require('./AioError');
 const AioBase = require('./AioBase');
 const AioContext = require('./AioContext');
 const AioParser = require('./AioParser');
