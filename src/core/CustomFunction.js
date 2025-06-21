@@ -1,6 +1,6 @@
-const Function = require('./Function');
+const AioFunction = require('./AioFunction'); // Using the renamed class
 
-class CustomFunction extends Function {
+class CustomFunction extends AioFunction {
     constructor(d, client) {
         super({
             name: d.name,

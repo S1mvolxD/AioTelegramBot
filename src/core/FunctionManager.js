@@ -1,6 +1,6 @@
 const path = require('path');
 const fs = require('fs');
-const Function = require('./Function');
+const AioFunction = require('./AioFunction');
 const CustomFunction = require('./CustomFunction');
 
 class FunctionManager {
@@ -36,7 +36,7 @@ class FunctionManager {
 
             const functionFiles = fs.readdirSync(categoryPath)
                 .filter(file => file.endsWith('.js'));
-
+                
             for (const file of functionFiles) {
                 const filePath = path.join(categoryPath, file);
                 try {
@@ -44,14 +44,14 @@ class FunctionManager {
                     const funcName = path.basename(file, '.js');
                     const fullName = `$${funcName}`;
 
-                    const func = new Function(
+                    const func = new AioFunction(
                         {
                             name: fullName,
                             description: funcModule.description || '',
                             params: funcModule.params || []
                         },
-                        funcModule.execute
-                    );
+                    funcModule.execute
+                );
 
                     this.registerFunction(func, category);
                     this.functionFiles.set(fullName, filePath);
