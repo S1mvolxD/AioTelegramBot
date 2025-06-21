@@ -45,7 +45,7 @@ class AioClient extends AioBase {
   }
 
   async startPolling() {
-    this.lastUpdateId = 0;
+    console.log("Starting polling with fetch:", typeof fetch);
     
     const poll = async () => {
       try {
@@ -58,17 +58,16 @@ class AioClient extends AioBase {
           for (const update of response.result) {
             try {
               await this.handleUpdate(update);
+              this.lastUpdateId = Math.max(this.lastUpdateId, update.update_id);
             } catch (e) {
               console.error('Update handling error:', e);
             }
-            this.lastUpdateId = Math.max(this.lastUpdateId, update.update_id);
           }
         }
       } catch (e) {
         console.error('Polling fatal error:', e);
       }
       
-      // Рекурсивный вызов вместо setInterval
       setTimeout(poll, 500);
     };
     
