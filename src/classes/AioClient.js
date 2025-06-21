@@ -15,16 +15,16 @@ class AioClient extends AioBase {
     this.loader = new LoadCommands(this);
     
     try {
-      this.functionManager.loadBuiltinFunctions(
+      this.functionManager.loadFunctions(
         path.join(__dirname, '../functions')
       );
         const customFunctionsPath = path.join(__dirname, '../functions');
         if (fs.existsSync(customFunctionsPath)) {
           this.functionManager.loadCustomFunctions(customFunctionsPath);
         }
-        console.log(`✅ Загружено ${this.functionManager.functions.size} функций`);
+        console.log(`Loaded ${this.functionManager.functions.size} functions`);
         } catch (error) {
-          console.error('❌ Ошибка загрузки функций:', error);
+          console.error('Error loading functions:', error);
         }
     this.parser = new AioParser(this);
   }
