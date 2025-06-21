@@ -16,9 +16,9 @@ class AioClient extends AioBase {
     
     try {
       this.functionManager.loadBuiltinFunctions(
-        path.join(__dirname, '../functions/builtin')
+        path.join(__dirname, '../functions')
       );
-        const customFunctionsPath = path.join(__dirname, '../functions/custom');
+        const customFunctionsPath = path.join(__dirname, '../functions');
         if (fs.existsSync(customFunctionsPath)) {
           this.functionManager.loadCustomFunctions(customFunctionsPath);
         }
