@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-class CommandLoader {
+class LoadCommands {
   constructor(client) {
     this.client = client;
     this.commands = new Map();
@@ -31,25 +31,36 @@ class CommandLoader {
     }
   }
 
+    _validateCommand(command) {
+    if (!command.name) {
+        throw new Error('The command must have a field "name"');
+    }
+    if (!command.code) {
+        throw new Error('The command must have a field "code"');
+    }
+    return true;
+    }
+
   _loadCommand(filePath, prefix) {
     try {
-      const commandModule = require(filePath);
-      const commandName = path.basename(filePath, '.js');
-      const fullCommandName = prefix ? `${prefix}${commandName}` : commandName;
+        const commandModule = require(filePath);
+        this._validateCommand(commandModule.command);
+        const commandName = path.basename(filePath, '.js');
+        const fullCommandName = prefix ? `${prefix}${commandName}` : commandName;
 
-      if (typeof commandModule === 'function') {
-        // For commands exported as a function
-        commandModule(this.client);
-      } else if (commandModule.command) {
-        // For command objects
-        this.client.command(commandModule.command);
-        this.commands.set(fullCommandName, commandModule);
-      } else {
-        console.warn(`⚠️ The file ${filePath} does not export the command`);
-      }
-    } catch (error) {
-      console.error(`❌ Error loading the ${filePath} command:`, error);
-    }
+        if (typeof commandModule === 'function') {
+            // For commands exported as a function
+            commandModule(this.client);
+        } else if (commandModule.command) {
+            // For command objects
+            this.client.command(commandModule.command);
+            this.commands.set(fullCommandName, commandModule);
+        } else {
+            console.warn(`⚠️ The file ${filePath} does not export the command`);
+        }
+        } catch (error) {
+        console.error(`❌ Error loading the ${filePath} command:`, error);
+        }
   }
 
   reloadCommand(filePath) {
@@ -64,4 +75,4 @@ class CommandLoader {
   }
 }
 
-module.exports = CommandLoader;
+module.exports = LoadCommands;
