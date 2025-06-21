@@ -18,3 +18,5 @@ class Function {
         return this;
     }
 }
+
+module.exports = Function;
