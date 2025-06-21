@@ -16,7 +16,7 @@ class FunctionManager {
     * @param {string} dirPath - Path to the functions folder
     */
     loadFunctions(dirPath) {
-        this._loadFunctionsFromDir(dirPath);
+        this._loadFunctionsFromDir(dirPath, 'message');
     }
 
     /**
