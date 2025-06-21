@@ -1,6 +1,7 @@
 const AioBase = require('./AioBase');
 const AioContext = require('./AioContext');
 const AioParser = require('./AioParser');
+const LoadCommands = require('./LoadCommands');
 
 class AioClient extends AioBase {
   constructor(token) {
@@ -10,9 +11,15 @@ class AioClient extends AioBase {
       sendMessage: this.sendMessage.bind(this),
       replyMessage: this.replyMessage.bind(this)
     };
-
     this.lastUpdateId = 0; // Инициализация для polling
+    this.loader = new LoadCommands(this);
   }
+
+  loadCommands(directory) {
+    this.loader.loadAll(directory);
+    return this; // Для чейнинга
+  }
+
 
   command({ name, code }) {
     this.commands[name] = code;
