@@ -1,6 +1,6 @@
 module.exports = {
-  AioBase: require('./AioBase'),
-  AioClient: require('./AioClient'),
-  AioContext: require('./AioContext'),
-  AioParser: require('./AioParser')
+  AioBase: require('./classes/AioBase'),
+  AioClient: require('./classes/AioClient'),
+  AioContext: require('./classes/AioContext'),
+  AioParser: require('./classes/AioParser')
 };
