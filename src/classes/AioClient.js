@@ -21,16 +21,8 @@ class AioClient extends AioBase {
   }
 
 
-    command(...args) {
-        for (const d of args) {
-            if (!d.name)
-                throw new TypeError(`Command ${this.cmd.default.size} needs a name!`);
-            if (!d.code)
-                throw new TypeError(`Command ${this.cmd.default.size} needs a code!`);
-
-            this.cmd.default.set(this.cmd.default.size, new Command(d, this));
-        }
-    // this.commands[name] = code;
+  command({ name, code }) {
+    this.commands[name] = code;
   }
 
   async handleUpdate(update) {
